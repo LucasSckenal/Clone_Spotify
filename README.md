@@ -1,6 +1,7 @@
 # Clone do Spotify
 
-![Logo do Spotify](spotify_logo.png)
+<img src="![image](https://github.com/LucasSckenal/Clone_Spotify/assets/112901084/c90a3a68-71f6-4679-ac4e-48b7153daa1f)
+"/>
 
 Bem-vindo ao repositório do Clone do Spotify! Este projeto é uma recriação do famoso aplicativo de streaming de música Spotify. Ele foi desenvolvido com o objetivo de aprimorar habilidades de programação e oferecer uma experiência semelhante à do Spotify original.
 
