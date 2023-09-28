@@ -12,7 +12,8 @@ li {
   list-style: none;
 }
 
-body {
+body,
+html {
   height: 100%;
 }
 
@@ -23,6 +24,9 @@ button {
 
 :root {
   --Background: #121212;
+  --Auth: #1a1a1a;
+  --Grey: #999999;
+  --Grey3: #b3b3b3;
   --BtnGreen: #4caf50;
   --DarkText: #000;
   --White: #fff;

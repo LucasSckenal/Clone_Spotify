@@ -1,24 +1,30 @@
 import React from "react";
-import "./style.scss";
+import styles from "./styles.module.scss";
+import "./background.css";
+import Image from "next/image";
+import Logo from "../Assets/spotify-logo-0.png";
 
 function Login() {
   return (
-    <div className="container-login">
-      <h1>logo</h1>
-      <div className="container-form">
-        <div className="redirect">
+    <div className={styles.containerLogin}>
+      <div className={styles.containerForm}>
+        <Image className={styles.logo} src={Logo} alt="" />
+        <div className={styles.redirect}>
           <button>SIGN IN</button>
           <button>SIGN UP</button>
         </div>
 
-        <input type="text" />
-        <input type="text" />
+        <input type="text" placeholder="Username" />
+        <input type="text" placeholder="Password" />
 
-        <div className="checkbox">
+        <div className={styles.checkbox}>
           <input type="checkbox" name="" id="" />
           <p>Stay signed in</p>
         </div>
-        <button>SIGN IN</button>
+
+        <button className={styles.singBtn}>SIGN IN</button>
+
+        <button>Forgot password</button>
       </div>
     </div>
   );
