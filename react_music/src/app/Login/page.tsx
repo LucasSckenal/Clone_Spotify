@@ -5,10 +5,10 @@ function Login() {
   return (
     <div className="container-login">
       <h1>logo</h1>
-      <div className="inputs">
-        <div className="links">
-          <a href="">SIGN IN</a>
-          <a href="">SIGN UP</a>
+      <div className="container-form">
+        <div className="redirect">
+          <button>SIGN IN</button>
+          <button>SIGN UP</button>
         </div>
 
         <input type="text" />
