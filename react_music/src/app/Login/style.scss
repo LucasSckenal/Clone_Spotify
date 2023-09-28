@@ -6,31 +6,33 @@
   align-items: center;
   height: 90vh;
   width: 80vw;
-}
 
-.container-form {
-  border: 1px solid blue;
-  min-width: 80vw;
-  min-height: 70vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 
-.container-form input {
-  border-radius: 30px;
-  height: 40px;
-  margin-top: 25px;
-}
+  .container-form {
+    border: 1px solid blue;
+    min-width: 80vw;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-.redirect {
-  border: 1px solid red;
-  min-width: 80vw;
-  display: flex;
-  justify-content: space-around;
-}
 
-.checkbox {
-  display: flex;
-  flex-direction: row;
+    input {
+      border-radius: 30px;
+      height: 40px;
+      margin-top: 25px;
+    }
+
+    .redirect {
+      border: 1px solid red;
+      min-width: 80vw;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .checkbox {
+      display: flex;
+      flex-direction: row;
+    }
+  }
 }
