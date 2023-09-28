@@ -1,0 +1,50 @@
+body {
+  background-color: rgb(167, 167, 167);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container-login {
+  border: 1px solid green;
+  background-color: rgb(46, 47, 51);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 90vh;
+  width: 80vw;
+}
+
+.inputs {
+  border: 1px solid blue;
+  min-width: 80vw;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.inputs input {
+  border-radius: 30px;
+  height: 40px;
+  margin-top: 25px;
+}
+
+.links {
+  border: 1px solid red;
+  min-width: 80%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.links a {
+  color: white;
+  text-decoration: none;
+}
+
+.checkbox {
+  display: flex;
+  flex-direction: row;
+}
