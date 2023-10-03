@@ -4,14 +4,19 @@ import "./background.css";
 import Image from "next/image";
 import Logo from "../Assets/spotify-logo-0.png";
 
+import Link from 'next/link'
+
 function Login() {
+  
   return (
     <div className={styles.containerLogin}>
       <div className={styles.containerForm}>
         <Image className={styles.logo} src={Logo} alt="" />
         <div className={styles.redirect}>
-          <button>SIGN IN</button>
-          <button>SIGN UP</button>
+          {/* <button>SIGN IN</button> */}
+          <Link href="/register">SIGN IN</Link>
+          {/* <button>SIGN UP</button> */}
+          <Link href="/register">SIGN UP</Link>
         </div>
 
         <input type="text" placeholder="Username" />
