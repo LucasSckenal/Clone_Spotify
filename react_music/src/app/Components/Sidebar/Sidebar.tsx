@@ -11,25 +11,35 @@ const Sidebar = () => {
             <li>
               <Image
                 src="/images/home-fill.svg"
-                alt=""
+                alt="Home"
                 width={26}
                 height={26}
               />
-              Home
             </li>
           </Link>
           <Link href="/search">
             <li>
-              <Image src="/images/search.svg" alt="" width={26} height={26} />
-              Search
+              <Image
+                src="/images/search.svg"
+                alt="Search"
+                width={26}
+                height={26}
+              />
             </li>
           </Link>
+        </ul>
+        <ul>
           <Link href="/library">
             <li>
-              <Image src="/images/library.svg" alt="" width={26} height={26} />
-              Your Library
+              <Image
+                src="/images/library.svg"
+                alt="Expand Your Library"
+                width={26}
+                height={26}
+              />
             </li>
           </Link>
+          <li></li>
         </ul>
       </nav>
     </aside>
