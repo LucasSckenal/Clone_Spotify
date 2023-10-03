@@ -1,12 +1,20 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./styles.module.sass";
+import { useState } from "react";
 
 const Sidebar = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <aside className={styles.bg}>
+    <aside className={`${styles.bg} ${isSidebarOpen ? styles.open : ""}`}>
       <nav>
-        <ul>
+        <ul className={isSidebarOpen ? styles.open : ""}>
           <Link href="/">
             <li>
               <Image
@@ -28,19 +36,22 @@ const Sidebar = () => {
             </li>
           </Link>
         </ul>
-        <ul>
-          <Link href="/library">
-            <li>
-              <Image
-                src="/images/library.svg"
-                alt="Expand Your Library"
-                width={26}
-                height={26}
-              />
-            </li>
-          </Link>
+        <div
+          className={`${styles.libraryContainer} ${
+            isSidebarOpen ? styles.open : ""
+          }`}
+        >
+          <div className={styles.library}>
+            <Image
+              src="/images/library.svg"
+              alt="Expand Your Library"
+              width={26}
+              height={26}
+              onClick={toggleSidebar}
+            />
+          </div>
           <li></li>
-        </ul>
+        </div>
       </nav>
     </aside>
   );
