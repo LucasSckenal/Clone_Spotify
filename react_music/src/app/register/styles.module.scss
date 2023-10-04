@@ -42,6 +42,10 @@
           color: var(--White);
           margin-top: 30px;
           padding: 3px;
+          border-bottom: 2px solid transparent;
+          transition: 0.5s;
+        }
+        a:hover {
           border-bottom: 2px solid var(--BtnGreen);
         }
       }
@@ -65,6 +69,9 @@
         height: 40px;
         color: var(--White);
         box-shadow: 2px 10px 42px -2px rgba(0, 0, 0, 0.75);
+      }
+      .singBtn:hover {
+        transform: scale(1.1);
       }
       button {
         margin-top: 20px;
@@ -116,6 +123,10 @@
           color: var(--White);
           margin-top: 30px;
           padding: 3px;
+          border-bottom: 2px solid transparent;
+          transition: 0.5s;
+        }
+        a:hover {
           border-bottom: 2px solid var(--BtnGreen);
         }
       }
@@ -140,6 +151,9 @@
         height: 40px;
         color: var(--White);
         box-shadow: 2px 10px 42px -2px rgba(0, 0, 0, 0.75);
+      }
+      .singBtn:hover {
+        transform: scale(1.1);
       }
       button {
         margin-top: 20px;
