@@ -6,7 +6,7 @@ import Logo from "../Assets/spotify-logo-0.png";
 
 import Link from "next/link";
 
-function Login() {
+function register() {
   return (
     <div className={styles.containerLogin}>
       <div className={styles.containerForm}>
@@ -17,19 +17,19 @@ function Login() {
         </div>
 
         <input type="text" placeholder="Username" />
+        <input type="text" placeholder="Email" />
         <input type="text" placeholder="Password" />
+        <input type="text" placeholder=" Confirm Password" />
 
         <div className={styles.checkbox}>
           <input type="checkbox" name="" id="" />
           <p>Stay signed in</p>
         </div>
 
-        <button className={styles.singBtn}>SIGN IN</button>
-
-        <button>Forgot password</button>
+        <button className={styles.singBtn}>CREATE ACOUNT</button>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default register;
