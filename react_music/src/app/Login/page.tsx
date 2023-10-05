@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import "./background.css";
 import Image from "next/image";
-import Logo from "../Assets/spotify-logo-0.png";
+import Logo from "../../../public/images/Assets/spotify-logo-0.png";
 
 import Link from "next/link";
 
