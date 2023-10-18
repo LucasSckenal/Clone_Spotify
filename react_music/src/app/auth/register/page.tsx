@@ -11,25 +11,16 @@ import Link from "next/link";
 function register() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [birth, setBirth] = useState<number>();
+  const [birth, setBirth] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  function handleclick() {
+  function handleFormSubmit(e: any): any {
+    e.preventDefault();
     console.log(name);
     console.log(email);
     console.log(birth);
     console.log(password);
   }
-
-  const formatBirth = (e: any) => {
-    const inputValue = e.target.value;
-
-    if (/^\d{4}-\d{2}-\d{2}$/.test(inputValue)) {
-      setBirth(inputValue);
-    } else {
-      alert(`Erro ao colocar a data`);
-    }
-  };
 
   return (
     <div className={styles.containerLogin}>
@@ -39,7 +30,7 @@ function register() {
           <Link href="/auth/login">SIGN IN</Link>
           <Link href="">SIGN UP</Link>
         </div>
-        <form action="">
+        <form onSubmit={handleFormSubmit}>
           <input
             type="text"
             placeholder="Username"
@@ -55,7 +46,7 @@ function register() {
           <input
             type="date"
             value={birth}
-            onChange={(e) => setBirth(parseInt(e.target.value))}
+            onChange={(e) => setBirth(e.target.value)}
           />
           <input
             type="text"
@@ -70,7 +61,7 @@ function register() {
             <p>Stay signed in</p>
           </div>
 
-          <button className={styles.singBtn} onClick={handleclick}>
+          <button type="submit" className={styles.singBtn}>
             CREATE ACOUNT
           </button>
         </form>
