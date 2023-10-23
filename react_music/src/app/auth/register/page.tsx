@@ -5,6 +5,7 @@ import styles from "./styles.module.scss";
 import "./background.css";
 import Image from "next/image";
 import Logo from "../../../../public/images/spotify-logo-0.png";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 import Link from "next/link";
 
@@ -13,6 +14,18 @@ function register() {
   const [email, setEmail] = useState<string>("");
   const [birth, setBirth] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+  const [showPassword, setShowPassword] = useState<any>("password");
+  const [passwordImg, setPasswordImg] = useState<any>(<AiFillEye />);
+
+  function onClickPassword(e: any): void {
+    setShowPassword(showPassword === "password" ? "text" : "password");
+
+    setPasswordImg(
+      showPassword === "password" ? <AiFillEyeInvisible /> : <AiFillEye />
+    );
+  }
 
   function handleFormSubmit(e: any): any {
     e.preventDefault();
@@ -38,7 +51,7 @@ function register() {
             onChange={(e) => setName(e.target.value)}
           />
           <input
-            type="text"
+            type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -48,13 +61,24 @@ function register() {
             value={birth}
             onChange={(e) => setBirth(e.target.value)}
           />
-          <input
-            type="text"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <input type="text" placeholder=" Confirm Password" />
+          <div className={styles.passwordContainer}>
+            <input
+              type={showPassword}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button onClick={onClickPassword}>{passwordImg}</button>
+          </div>
+          <div className={styles.passwordContainer}>
+            <input
+              type={showPassword}
+              placeholder="Confirm password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <button onClick={onClickPassword}>{passwordImg}</button>
+          </div>
 
           <div className={styles.checkbox}>
             <input type="checkbox" name="" id="" />
