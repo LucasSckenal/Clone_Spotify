@@ -1,15 +1,19 @@
 :root {
- --Background: #121212;
- --Auth: #1a1a1a;
- --Grey: #999999;
- --Grey3: #b3b3b3;
- --BtnGreen: #4caf50;
- --DarkText: #000;
- --White: #fff;
+  --Background: #121212;
+  --Auth: #1a1a1a;
+  --Grey: #999999;
+  --Grey3: #b3b3b3;
+  --BtnGreen: #4caf50;
+  --DarkText: #000;
+  --White: #fff;
 }
 
 * {
- margin: 0;
- padding: 0;
- box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--DarkText);
 }
