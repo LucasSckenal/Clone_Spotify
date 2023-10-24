@@ -8,19 +8,48 @@ import Logo from "../../../../public/images/spotify-logo-0.png";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 import Link from "next/link";
-import { type } from "os";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const createUserFormSchema = z.object({
+  username: z.string().nonempty("Nome de usuario é obrigatório"),
+  email: z
+    .string()
+    .nonempty("O email é obrigatório")
+    .email("formato de email inválido"),
+  birth: z.string().refine(
+    (value) => {
+      const birthDate = new Date(value);
+      const minAgeDate = new Date();
+      minAgeDate.setFullYear(minAgeDate.getFullYear() - 18);
+      return birthDate <= minAgeDate;
+    },
+    {
+      message: "Você deve ter pelo menos 18 anos de idade.",
+    }
+  ),
+  password: z.string().nonempty("Precisa de uma senha"),
+  confirmPassword: z.string().nonempty("A senha precisa ser igual"),
+});
+
+type CreateUserFormData = z.infer<typeof createUserFormSchema>;
 
 function register() {
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [birth, setBirth] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
-
-  const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
-
   const [showPassword, setShowPassword] = useState<any>("password");
   const [passwordImg, setPasswordImg] = useState<any>(<AiFillEye />);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CreateUserFormData>({
+    resolver: zodResolver(createUserFormSchema),
+  });
+
+  function FormSubmit(e: any) {
+    alert("deu certo");
+  }
 
   function onClickPassword(e: any): void {
     e.preventDefault();
@@ -31,70 +60,39 @@ function register() {
     );
   }
 
-  function handleFormSubmit(e: any): any {
-    e.preventDefault();
-
-    const birthNum: number = new Date(birth).getFullYear();
-
-    const currentYear: number = new Date().getFullYear();
-
-    const age: number = currentYear - birthNum;
-
-    if (name && email && birthNum && password && confirmPassword != "") {
-      if (age < 18) {
-        alert("você precisa ter mais que 18 anos");
-      } else if (password != confirmPassword) {
-        alert("as senhas precisam ser iguais");
-      } else {
-        alert("deu certo");
-      }
-    } else {
-      alert("preencha todos os campos");
-    }
-  }
-
   return (
     <div className={styles.containerLogin}>
       <div className={styles.containerForm}>
-        <Image className={styles.logo} src={Logo} alt="" />
+        <Image className={styles.logo} src={Logo} alt="Spotify logo" />
         <div className={styles.redirect}>
           <Link href="/auth/login">SIGN IN</Link>
           <Link href="">SIGN UP</Link>
         </div>
-        <form onSubmit={handleFormSubmit}>
-          <input
-            type="text"
-            placeholder="Username"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="date"
-            value={birth}
-            onChange={(e) => setBirth(e.target.value)}
-          />
+        <form onSubmit={handleSubmit(FormSubmit)}>
+          <input type="text" placeholder="Username" {...register("username")} />
+          {errors.username && <span>{errors.username.message}</span>}
+          <input type="email" placeholder="Email" {...register("email")} />
+          {errors.email && <span>{errors.email.message}</span>}
+          <input type="date" {...register("birth")} />
+          {errors.birth && <span>{errors.birth.message}</span>}
           <div className={styles.passwordContainer}>
             <input
               type={showPassword}
               placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password")}
             />
+            {errors.password && <span>{errors.password.message}</span>}
             <button onClick={onClickPassword}>{passwordImg}</button>
           </div>
           <div className={styles.passwordContainer}>
             <input
               type={showPassword}
               placeholder="Confirm password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              {...register("confirmPassword")}
             />
+            {errors.confirmPassword && (
+              <span>{errors.confirmPassword.message}</span>
+            )}
             <button onClick={onClickPassword}>{passwordImg}</button>
           </div>
 
