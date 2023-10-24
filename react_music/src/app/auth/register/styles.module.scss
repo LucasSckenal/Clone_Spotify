@@ -59,6 +59,11 @@
         input[type="date"]::-webkit-calendar-picker-indicator {
           display: none;
         }
+        span {
+          position: relative;
+          top: 8px;
+          color: var(--White);
+        }
 
         .passwordContainer {
           display: flex;
@@ -164,6 +169,11 @@
         }
         input[type="date"]::-webkit-calendar-picker-indicator {
           display: none;
+        }
+        span {
+          position: relative;
+          top: 8px;
+          color: var(--White);
         }
 
         .passwordContainer {

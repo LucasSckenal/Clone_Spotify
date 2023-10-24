@@ -11,6 +11,8 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "@/app/api/firebase";
 
 const createUserFormSchema = z.object({
   username: z.string().nonempty("Nome de usuario é obrigatório"),
@@ -47,8 +49,26 @@ function register() {
     resolver: zodResolver(createUserFormSchema),
   });
 
-  function FormSubmit(e: any) {
-    alert("deu certo");
+  async function FormSubmit(e: any) {
+    if (e.password == e.confirmPassword) {
+      const name: string = e.username;
+      const email: string = e.email;
+      const birth: string = e.birth;
+      const password: string = e.password;
+
+      const userCollections = collection(db, "users");
+
+      const user = await addDoc(userCollections, {
+        name,
+        email,
+        birth,
+        password,
+      });
+
+      alert("deu certo");
+    } else {
+      alert("não deu certo");
+    }
   }
 
   function onClickPassword(e: any): void {
