@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import styles from "./styles.module.sass";
+import styles from "./styles.module.scss";
 import { useState } from "react";
 
 const Sidebar = () => {
