@@ -8,6 +8,7 @@ import Logo from "../../../../public/images/spotify-logo-0.png";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 import Link from "next/link";
+import { type } from "os";
 
 function register() {
   const [name, setName] = useState<string>("");
@@ -22,6 +23,7 @@ function register() {
   const [passwordImg, setPasswordImg] = useState<any>(<AiFillEye />);
 
   function onClickPassword(e: any): void {
+    e.preventDefault();
     setShowPassword(showPassword === "password" ? "text" : "password");
 
     setPasswordImg(
@@ -32,10 +34,23 @@ function register() {
   function handleFormSubmit(e: any): any {
     e.preventDefault();
 
-    if (name && email && birth && password && confirmPassword != "") {
-      alert("deu certo");
+    const birthNum: number = new Date(birth).getFullYear();
+
+    const currentYear: number = new Date().getFullYear();
+
+    const age: number = currentYear - birthNum;
+
+    if (name && email && birthNum && password && confirmPassword != "") {
+      if (age < 18) {
+        alert("você precisa ter mais que 18 anos");
+      } else if (password != confirmPassword) {
+        alert("as senhas precisam ser iguais");
+      } else {
+        alert("deu certo");
+      }
+    } else {
+      alert("preencha todos os campos");
     }
-    alert("erro");
   }
 
   return (
