@@ -16,6 +16,8 @@ function register() {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
+  const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
+
   const [showPassword, setShowPassword] = useState<any>("password");
   const [passwordImg, setPasswordImg] = useState<any>(<AiFillEye />);
 
@@ -29,10 +31,11 @@ function register() {
 
   function handleFormSubmit(e: any): any {
     e.preventDefault();
-    console.log(name);
-    console.log(email);
-    console.log(birth);
-    console.log(password);
+
+    if (name && email && birth && password && confirmPassword != "") {
+      alert("deu certo");
+    }
+    alert("erro");
   }
 
   return (
