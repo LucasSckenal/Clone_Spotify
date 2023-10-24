@@ -1,0 +1,15 @@
+.player_controls {
+ display: flex;
+ gap: 22px;
+
+ button {
+  color: var(--White);
+  background: none;
+  border: none;
+
+  img {
+   width: 32px;
+   height: 32px;
+  }
+ }
+}
