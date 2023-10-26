@@ -1,12 +1,31 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import styles from "./styles.module.scss";
 import "./background.css";
 import Image from "next/image";
 import Logo from "../../../../public/images/spotify-logo-0.png";
-
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 import Link from "next/link";
+import { db } from "@/app/api/firebase";
+
+async function fetchDataFromFirestore() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "users"));
+
+    querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${doc.data().name}`);
+      console.log(`${doc.id} => ${doc.data().email}`);
+    });
+  } catch (error) {
+    console.error("Erro ao buscar dados", error);
+  }
+}
 
 function Login() {
+  useEffect(() => {
+    fetchDataFromFirestore();
+  }, []);
+
   return (
     <div className={styles.containerLogin}>
       <div className={styles.containerForm}>
