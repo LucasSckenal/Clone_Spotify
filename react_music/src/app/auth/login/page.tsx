@@ -1,5 +1,4 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import "./background.css";
 import Image from "next/image";
@@ -9,52 +8,20 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import Link from "next/link";
 import { db } from "@/app/api/firebase";
 
-async function fetchDataFromFirestore() {
-  try {
-    const querySnapshot = await getDocs(collection(db, "users"));
-
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data().name}`);
-      console.log(`${doc.id} => ${doc.data().email}`);
-    });
-  } catch (error) {
-    console.error("Erro ao buscar dados", error);
-  }
-}
-
 const createUserFormSchema = z.object({
-  username: z.string().nonempty("Nome de usuario é obrigatório"),
-  email: z
-    .string()
-    .nonempty("O email é obrigatório")
-    .email("formato de email inválido"),
-  birth: z.string().refine(
-    (value) => {
-      const birthDate = new Date(value);
-      const minAgeDate = new Date();
-      minAgeDate.setFullYear(minAgeDate.getFullYear() - 18);
-      return birthDate <= minAgeDate;
-    },
-    {
-      message: "Você deve ter pelo menos 18 anos de idade.",
-    }
-  ),
-  password: z.string().nonempty("Precisa de uma senha"),
-  confirmPassword: z.string().nonempty("A senha precisa ser igual"),
+  username: z.string().nonempty("Nome de usuario é obrigatório para logar"),
+  password: z.string().nonempty("A sua senha pode estar errada"),
 });
 
 type CreateUserFormData = z.infer<typeof createUserFormSchema>;
 
 function Login() {
-  useEffect(() => {
-    fetchDataFromFirestore();
-  }, []);
-
   const [showPassword, setShowPassword] = useState<any>("password");
   const [passwordImg, setPasswordImg] = useState<any>(<AiFillEye />);
 
@@ -66,25 +33,28 @@ function Login() {
     resolver: zodResolver(createUserFormSchema),
   });
 
-  async function FormSubmit(e: any) {
-    if (e.password == e.confirmPassword) {
-      const name: string = e.username;
-      const email: string = e.email;
-      const birth: string = e.birth;
-      const password: string = e.password;
+  async function FormSubmit(data: any) {
+    const { username, password } = data;
 
-      const userCollections = collection(db, "users");
+    try {
+      const querySnapshot = await getDocs(collection(db, "users"));
 
-      const user = await addDoc(userCollections, {
-        name,
-        email,
-        birth,
-        password,
+      querySnapshot.forEach((doc) => {
+        const docData = doc.data();
+
+        if (username === docData.name && password === docData.password) {
+          // Os dados do usuário correspondem aos dados no Firestore
+          console.log(`Usuário autenticado: ${username}`);
+          alert("Autenticação bem-sucedida");
+
+          return; // Saia do loop forEach após encontrar uma correspondência
+        }
       });
 
-      alert("deu certo");
-    } else {
-      alert("não deu certo");
+      // Se nenhum usuário correspondente for encontrado, mostre uma mensagem de erro
+      alert("Nome de usuário ou senha incorretos");
+    } catch (error) {
+      console.error("Erro ao buscar dados", error);
     }
   }
 
