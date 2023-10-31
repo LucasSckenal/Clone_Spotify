@@ -10,6 +10,11 @@ const songs = [
   "/music/vou falar que não quero.mp3",
   "/music/cartola.mp3",
   "/music/FalseAlarm.mp3",
+  "/music/TheRealSlimShady.mp3",
+  "/music/DownBelow.mp3",
+  "/music/Savage.mp3",
+  "/music/Sunflower.mp3",
+  "/music/TakeWhatYouWant.mp3",
 ];
 
 const Footer = () => {
