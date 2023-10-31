@@ -8,11 +8,13 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import Link from "next/link";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/app/api/firebase";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const createUserFormSchema = z.object({
   username: z.string().nonempty("Nome de usuario é obrigatório para logar"),
@@ -24,6 +26,7 @@ type CreateUserFormData = z.infer<typeof createUserFormSchema>;
 function Login() {
   const [showPassword, setShowPassword] = useState<any>("password");
   const [passwordImg, setPasswordImg] = useState<any>(<AiFillEye />);
+  const route = useRouter();
 
   const {
     register,
@@ -43,16 +46,13 @@ function Login() {
         const docData = doc.data();
 
         if (username === docData.name && password === docData.password) {
-          // Os dados do usuário correspondem aos dados no Firestore
-          console.log(`Usuário autenticado: ${username}`);
-          alert("Autenticação bem-sucedida");
-
-          return; // Saia do loop forEach após encontrar uma correspondência
+        
+          toast.success("Autenticação bem-sucedida");
+          route.push("/");
         }
       });
 
-      // Se nenhum usuário correspondente for encontrado, mostre uma mensagem de erro
-      alert("Nome de usuário ou senha incorretos");
+      toast.warning("Nome de usuário ou senha incorretos");
     } catch (error) {
       console.error("Erro ao buscar dados", error);
     }
