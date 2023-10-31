@@ -9,6 +9,7 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addDoc, collection } from "firebase/firestore";
@@ -40,6 +41,7 @@ type CreateUserFormData = z.infer<typeof createUserFormSchema>;
 function register() {
   const [showPassword, setShowPassword] = useState<any>("password");
   const [passwordImg, setPasswordImg] = useState<any>(<AiFillEye />);
+  const route = useRouter();
 
   const {
     register,
@@ -66,6 +68,8 @@ function register() {
       });
 
       alert("deu certo");
+
+      route.push("/auth/login");
     } else {
       alert("não deu certo");
     }
