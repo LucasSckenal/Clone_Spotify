@@ -49,7 +49,7 @@ function Login() {
 
         if (username === docData.name && password === docData.password) {
           confirmUser = true;
-          toast.success("Autenticação bem-sucedida");
+          toast.success("Successful authentication");
 
           setTimeout(() => {
             route.push("/");
@@ -57,10 +57,10 @@ function Login() {
         }
       });
       if (confirmUser == false) {
-        toast.warning("Nome de usuário ou senha incorretos");
+        toast.warning("Incorrect username or password");
       }
     } catch (error) {
-      console.error("Erro ao buscar dados", error);
+      // console.error("Erro ao buscar dados", error);
     }
   }
 

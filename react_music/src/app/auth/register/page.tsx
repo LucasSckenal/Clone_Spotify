@@ -69,13 +69,13 @@ function register() {
         password,
       });
 
-      toast.success("conta criada com sucesso");
+      toast.success("account created successfully");
 
       setTimeout(() => {
         route.push("/auth/login");
       }, 1500);
     } else {
-      toast.warning("Algo deu errado, verifique os campos novamente");
+      toast.warning("Something went wrong, check the fields again");
     }
   }
 
