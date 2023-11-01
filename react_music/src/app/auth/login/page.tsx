@@ -13,7 +13,8 @@ import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/app/api/firebase";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 
 const createUserFormSchema = z.object({
@@ -38,6 +39,7 @@ function Login() {
 
   async function FormSubmit(data: any) {
     const { username, password } = data;
+    let confirmUser: boolean = false;
 
     try {
       const querySnapshot = await getDocs(collection(db, "users"));
@@ -46,13 +48,17 @@ function Login() {
         const docData = doc.data();
 
         if (username === docData.name && password === docData.password) {
-        
+          confirmUser = true;
           toast.success("Autenticação bem-sucedida");
-          route.push("/");
+
+          setTimeout(() => {
+            route.push("/");
+          }, 1500);
         }
       });
-
-      toast.warning("Nome de usuário ou senha incorretos");
+      if (confirmUser == false) {
+        toast.warning("Nome de usuário ou senha incorretos");
+      }
     } catch (error) {
       console.error("Erro ao buscar dados", error);
     }
@@ -68,38 +74,57 @@ function Login() {
   }
 
   return (
-    <div className={styles.containerLogin}>
-      <div className={styles.containerForm}>
-        <Image className={styles.logo} src={Logo} alt="" />
-        <div className={styles.redirect}>
-          <Link href="">SIGN IN</Link>
-          <Link href="/auth/register">SIGN UP</Link>
-        </div>
+    <>
+      <ToastContainer
+        position="top-right"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+      ;
+      <div className={styles.containerLogin}>
+        <div className={styles.containerForm}>
+          <Image className={styles.logo} src={Logo} alt="" />
+          <div className={styles.redirect}>
+            <Link href="">SIGN IN</Link>
+            <Link href="/auth/register">SIGN UP</Link>
+          </div>
 
-        <form onSubmit={handleSubmit(FormSubmit)}>
-          <input type="text" placeholder="Username" {...register("username")} />
-          {errors.username && <span>{errors.username.message}</span>}
-          <div className={styles.passwordContainer}>
+          <form onSubmit={handleSubmit(FormSubmit)}>
             <input
-              type={showPassword}
-              placeholder="Password"
-              {...register("password")}
+              type="text"
+              placeholder="Username"
+              {...register("username")}
             />
-            {errors.password && <span>{errors.password.message}</span>}
-            <button onClick={onClickPassword}>{passwordImg}</button>
-          </div>
+            {errors.username && <span>{errors.username.message}</span>}
+            <div className={styles.passwordContainer}>
+              <input
+                type={showPassword}
+                placeholder="Password"
+                {...register("password")}
+              />
+              {errors.password && <span>{errors.password.message}</span>}
+              <button onClick={onClickPassword}>{passwordImg}</button>
+            </div>
 
-          <div className={styles.checkbox}>
-            <input type="checkbox" name="" id="" />
-            <p>Stay signed in</p>
-          </div>
+            <div className={styles.checkbox}>
+              <input type="checkbox" name="" id="" />
+              <p>Stay signed in</p>
+            </div>
 
-          <button className={styles.singBtn}>SIGN IN</button>
+            <button className={styles.singBtn}>SIGN IN</button>
 
-          <button>Forgot password</button>
-        </form>
+            <button>Forgot password</button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
