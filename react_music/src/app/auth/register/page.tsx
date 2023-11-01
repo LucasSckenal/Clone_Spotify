@@ -11,6 +11,8 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/app/api/firebase";
@@ -67,11 +69,13 @@ function register() {
         password,
       });
 
-      alert("deu certo");
+      toast.success("conta criada com sucesso");
 
-      route.push("/auth/login");
+      setTimeout(() => {
+        route.push("/auth/login");
+      }, 1500);
     } else {
-      alert("não deu certo");
+      toast.warning("Algo deu errado, verifique os campos novamente");
     }
   }
 
@@ -85,52 +89,70 @@ function register() {
   }
 
   return (
-    <div className={styles.containerLogin}>
-      <div className={styles.containerForm}>
-        <Image className={styles.logo} src={Logo} alt="Spotify logo" />
-        <div className={styles.redirect}>
-          <Link href="/auth/login">SIGN IN</Link>
-          <Link href="">SIGN UP</Link>
+    <>
+      <ToastContainer
+        position="top-right"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+      <div className={styles.containerLogin}>
+        <div className={styles.containerForm}>
+          <Image className={styles.logo} src={Logo} alt="Spotify logo" />
+          <div className={styles.redirect}>
+            <Link href="/auth/login">SIGN IN</Link>
+            <Link href="">SIGN UP</Link>
+          </div>
+          <form onSubmit={handleSubmit(FormSubmit)}>
+            <input
+              type="text"
+              placeholder="Username"
+              {...register("username")}
+            />
+            {errors.username && <span>{errors.username.message}</span>}
+            <input type="email" placeholder="Email" {...register("email")} />
+            {errors.email && <span>{errors.email.message}</span>}
+            <input type="date" {...register("birth")} />
+            {errors.birth && <span>{errors.birth.message}</span>}
+            <div className={styles.passwordContainer}>
+              <input
+                type={showPassword}
+                placeholder="Password"
+                {...register("password")}
+              />
+              {errors.password && <span>{errors.password.message}</span>}
+              <button onClick={onClickPassword}>{passwordImg}</button>
+            </div>
+            <div className={styles.passwordContainer}>
+              <input
+                type={showPassword}
+                placeholder="Confirm password"
+                {...register("confirmPassword")}
+              />
+              {errors.confirmPassword && (
+                <span>{errors.confirmPassword.message}</span>
+              )}
+              <button onClick={onClickPassword}>{passwordImg}</button>
+            </div>
+
+            <div className={styles.checkbox}>
+              <input type="checkbox" name="" id="" />
+              <p>Stay signed in</p>
+            </div>
+
+            <button type="submit" className={styles.singBtn}>
+              CREATE ACOUNT
+            </button>
+          </form>
         </div>
-        <form onSubmit={handleSubmit(FormSubmit)}>
-          <input type="text" placeholder="Username" {...register("username")} />
-          {errors.username && <span>{errors.username.message}</span>}
-          <input type="email" placeholder="Email" {...register("email")} />
-          {errors.email && <span>{errors.email.message}</span>}
-          <input type="date" {...register("birth")} />
-          {errors.birth && <span>{errors.birth.message}</span>}
-          <div className={styles.passwordContainer}>
-            <input
-              type={showPassword}
-              placeholder="Password"
-              {...register("password")}
-            />
-            {errors.password && <span>{errors.password.message}</span>}
-            <button onClick={onClickPassword}>{passwordImg}</button>
-          </div>
-          <div className={styles.passwordContainer}>
-            <input
-              type={showPassword}
-              placeholder="Confirm password"
-              {...register("confirmPassword")}
-            />
-            {errors.confirmPassword && (
-              <span>{errors.confirmPassword.message}</span>
-            )}
-            <button onClick={onClickPassword}>{passwordImg}</button>
-          </div>
-
-          <div className={styles.checkbox}>
-            <input type="checkbox" name="" id="" />
-            <p>Stay signed in</p>
-          </div>
-
-          <button type="submit" className={styles.singBtn}>
-            CREATE ACOUNT
-          </button>
-        </form>
       </div>
-    </div>
+    </>
   );
 }
 
