@@ -1,0 +1,35 @@
+.backG {
+  background: rgb(0, 0, 0);
+  color: white;
+  height: 100vh;
+  width: 100%;
+  padding: 20px;
+}
+
+.container {
+  background: linear-gradient(to bottom, #64a052, #35552c, #000000);
+}
+
+.onTopBtn {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+
+  button {
+    background: none;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.459);
+    margin: 7px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
+  .btnUser {
+    width: 189px;
+    height: 40px;
+    padding: 3px, 12px, 3px, 3px;
+    border-radius: 40px;
+    gap: 11px;
+  }
+}
