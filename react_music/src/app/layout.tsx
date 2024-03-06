@@ -2,7 +2,7 @@ import "./globals.scss";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Sidebar from "./Components/Sidebar/Sidebar";
-import Center from "./Components/Center/Center";
+import Header from "./Components/Header/Header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className} style={{ display: "flex" }}>
         <Sidebar />
-        <Center />
+        <Header />
         {children}
       </body>
     </html>
