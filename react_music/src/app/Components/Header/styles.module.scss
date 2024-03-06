@@ -1,7 +1,7 @@
 .backG {
-  background: rgb(129, 129, 129);
+  background-image: linear-gradient(to bottom, #4caf50, #1a3b1b, #081309);
   color: white;
-  height: 250px;
+  height: 400px;
   width: 100%;
   padding: 20px;
 }
@@ -9,6 +9,7 @@
 .onTopBtn {
   display: flex;
   justify-content: space-between;
+  align-items: start;
   padding: 5px;
 
   button {
@@ -34,24 +35,58 @@
   }
 
   .btnUser {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: auto;
     height: 40px;
-    padding: 3px, 12px, 3px, 3px;
     border-radius: 40px;
-    gap: 11px;
-    img {
-      margin-left: 4px;
-      border-radius: 50%;
+    transition: 0.5s;
+    display: flex;
+    align-items: start;
+
+    div {
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      img {
+        margin-left: 4px;
+        border-radius: 50%;
+      }
+      p {
+        color: var(--White);
+      }
+      span {
+        margin-right: 10px;
+        color: var(--White);
+      }
     }
-    p {
-      color: var(--White);
-    }
-    span {
-      margin-right: 10px;
-      color: var(--White);
+  }
+  .open {
+    display: flex;
+    padding-top: 5px;
+    align-items: start;
+    height: 200px;
+    border-radius: 20px;
+  }
+}
+
+.info {
+  display: flex;
+  gap: 30px;
+  border: 1px solid red;
+
+  .infoText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    div {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      img {
+        border-radius: 50%;
+      }
     }
   }
 }
