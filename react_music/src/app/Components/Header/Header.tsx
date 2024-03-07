@@ -4,9 +4,9 @@ import { SlArrowLeft, SlArrowRight, SlArrowDown } from "react-icons/sl";
 import Image from "next/image";
 import { useState } from "react";
 const Header = () => {
-  const [openUser, setOpenUser] = useState(false);
+  const [openUser, setOpenUser] = useState<boolean>(false);
 
-  const toggleUser = () => {
+  const toggleUser = (): void => {
     setOpenUser(!openUser);
   };
 
@@ -27,6 +27,7 @@ const Header = () => {
             className={`${styles.btnUser} ${openUser ? styles.open : ""}`}
           >
             <div>
+              {/* foto do usuário */}
               <Image
                 src="/images/fotominha.jpeg"
                 alt=""
@@ -43,11 +44,13 @@ const Header = () => {
       </header>
 
       <div className={styles.info}>
+        {/* foto da playlist */}
         <Image src="/images/fotoPlaylist.jpg" alt="" width={200} height={200} />
         <div className={styles.infoText}>
           <p>PLAYLIST</p>
           <h1>Titulo da Playlist</h1>
           <div>
+            {/* foto do usuário */}
             <Image src="/images/fotominha.jpeg" alt="" width={35} height={35} />
             <p>Nome da pessoa</p>
           </div>
