@@ -1,15 +1,53 @@
-.player_controls {
+.controls {
  display: flex;
- gap: 22px;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
+ gap: 10px;
 
- button {
-  color: var(--White);
-  background: none;
-  border: none;
+ .player_controls {
+  display: flex;
+  gap: 22px;
 
-  img {
-   width: 32px;
-   height: 32px;
+  button {
+   color: var(--White);
+   background: none;
+   border: none;
+
+   img {
+    width: 32px;
+    height: 32px;
+   }
+  }
+ }
+
+ .musicTimer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+   color: var(--White);
+  }
+
+  .progressBar {
+   flex-grow: 1;
+   height: 4px;
+   width: 20vw;
+   background: var(--Grey);
+   margin: 0 10px;
+  }
+
+  .progress {
+   height: 100%;
+   background: var(--White);
+  }
+
+  .progressBar:hover {
+   .progress {
+    background: var(--BtnGreen);
+   }
   }
  }
 }

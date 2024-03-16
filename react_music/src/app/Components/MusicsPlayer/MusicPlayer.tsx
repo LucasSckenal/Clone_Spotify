@@ -10,8 +10,16 @@ interface MusicPlayerProps {
 function MusicPlayer({ songs, audioRef }: MusicPlayerProps) {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
 
   const currentSong = songs[currentSongIndex];
+
+  const handleTimeChange = (event) => {
+    setCurrentTime(+event.target.value);
+    if (audioRef.current) {
+      audioRef.current.currentTime = event.target.value;
+    }
+  };
 
   const playPause = () => {
     if (audioRef.current) {
@@ -45,6 +53,18 @@ function MusicPlayer({ songs, audioRef }: MusicPlayerProps) {
     }
   }, [currentSong]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (audioRef.current) {
+        setCurrentTime(audioRef.current.currentTime);
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <div>
       <PlayerControls
@@ -52,6 +72,9 @@ function MusicPlayer({ songs, audioRef }: MusicPlayerProps) {
         onPlayPause={playPause}
         onNext={nextSong}
         onPrevious={previousSong}
+        duration={audioRef.current ? audioRef.current.duration : 0}
+        currentTime={currentTime}
+        onTimeChange={(value) => setCurrentTime(value)}
       />
 
       <audio ref={audioRef} />
