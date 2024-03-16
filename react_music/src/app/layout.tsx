@@ -19,8 +19,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className} style={{ display: "flex" }}>
         <Sidebar />
-        <Header />
-        {children}
+        <div style={{ display: "flex", flexDirection: "column", width:"100%" }}>
+          <Header />
+          {children}
+        </div>
       </body>
     </html>
   );
