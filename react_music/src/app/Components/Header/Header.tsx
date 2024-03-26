@@ -11,52 +11,27 @@ const Header = () => {
   };
 
   return (
-    <div className={styles.backG}>
-      <header>
-        <div className={styles.onTopBtn}>
-          <div className={styles.arrows}>
-            <button>
-              <SlArrowLeft />
-            </button>
-            <button>
-              <SlArrowRight />
-            </button>
-          </div>
-          <button
-            onClick={toggleUser}
-            className={`${styles.btnUser} ${openUser ? styles.open : ""}`}
-          >
-            <div>
-              {/* foto do usuário */}
-              <Image
-                src="/images/fotominha.jpeg"
-                alt=""
-                width={30}
-                height={30}
-              />
-              <p>Nome da pessoa</p>
-              <span>
-                <SlArrowDown />
-              </span>
-            </div>
+    <header className={styles.header}>
+      <div className={styles.onTopBtn}>
+        <div className={styles.arrows}>
+          <button>
+            <SlArrowLeft />
+          </button>
+          <button>
+            <SlArrowRight />
           </button>
         </div>
-      </header>
-
-      <div className={styles.info}>
-        {/* foto da playlist */}
-        <Image src="/images/fotoPlaylist.jpg" alt="" width={200} height={200} />
-        <div className={styles.infoText}>
-          <p>PLAYLIST</p>
-          <h1>Titulo da Playlist</h1>
+        <button
+          onClick={toggleUser}
+          className={`${styles.btnUser} ${openUser ? styles.open : ""}`}
+        >
           <div>
             {/* foto do usuário */}
-            <Image src="/images/fotominha.jpeg" alt="" width={35} height={35} />
-            <p>Nome da pessoa</p>
+            <Image src="/images/fotominha.jpeg" alt="" width={30} height={30} />
           </div>
-        </div>
+        </button>
       </div>
-    </div>
+    </header>
   );
 };
 

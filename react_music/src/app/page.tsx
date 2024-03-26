@@ -1,10 +1,6 @@
 import styles from "./page.module.css";
-import HomePage from "./Components/Home/Home";
+import HomePage from "./Home/HomePage";
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <HomePage />
-    </main>
-  );
+  return <main className={styles.main}></main>;
 }

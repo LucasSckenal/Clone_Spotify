@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
+import HomePage from "./Home/HomePage";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,12 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className} style={{ display: "flex" }}>
-        <div style={{ display: "flex", flex: "row", gap: "20px" }}>
+        <div style={{ display: "flex", gap: "20px" }}>
           <Sidebar />
-          <div style={{ display: "flex", flexDirection: "column", width:"100%" }}>
           <Header />
-            <Footer />
-        </div>
+          <HomePage />
+          <Footer />
         </div>
       </body>
     </html>
