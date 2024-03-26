@@ -1,9 +1,7 @@
 .backG {
   background-image: linear-gradient(to bottom, #4caf50, #1a3b1b, #081309);
   color: white;
-  height: 400px;
-  width: 100%;
-  padding: 20px;
+  padding-top: 20px;
 }
 
 .onTopBtn {
@@ -75,7 +73,6 @@
 .info {
   display: flex;
   gap: 30px;
-  
 
   img {
     border-radius: 10px;
