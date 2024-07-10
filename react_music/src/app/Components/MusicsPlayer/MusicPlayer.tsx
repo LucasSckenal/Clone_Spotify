@@ -11,13 +11,15 @@ function MusicPlayer({ songs, audioRef }: MusicPlayerProps) {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   const currentSong = songs[currentSongIndex];
 
-  const handleTimeChange = (event) => {
-    setCurrentTime(+event.target.value);
+  const handleTimeChange = (value: number) => {
+    setCurrentTime(value);
     if (audioRef.current) {
-      audioRef.current.currentTime = event.target.value;
+      audioRef.current.currentTime = value;
     }
   };
 
@@ -54,15 +56,23 @@ function MusicPlayer({ songs, audioRef }: MusicPlayerProps) {
   }, [currentSong]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (audioRef.current) {
-        setCurrentTime(audioRef.current.currentTime);
-      }
-    }, 1000);
+    if (audioRef.current) {
+      const updateProgress = () => {
+        setCurrentTime(audioRef.current!.currentTime);
+        setDuration(audioRef.current!.duration);
+        setProgress(
+          (audioRef.current!.currentTime / audioRef.current!.duration) * 100
+        );
+      };
 
-    return () => {
-      clearInterval(interval);
-    };
+      const interval = setInterval(updateProgress, 1000);
+      audioRef.current.addEventListener("timeupdate", updateProgress);
+
+      return () => {
+        clearInterval(interval);
+        audioRef.current?.removeEventListener("timeupdate", updateProgress);
+      };
+    }
   }, []);
 
   return (
@@ -72,11 +82,10 @@ function MusicPlayer({ songs, audioRef }: MusicPlayerProps) {
         onPlayPause={playPause}
         onNext={nextSong}
         onPrevious={previousSong}
-        duration={audioRef.current ? audioRef.current.duration : 0}
+        duration={duration}
         currentTime={currentTime}
-        onTimeChange={(value) => setCurrentTime(value)}
+        onTimeChange={handleTimeChange}
       />
-
       <audio ref={audioRef} />
     </div>
   );

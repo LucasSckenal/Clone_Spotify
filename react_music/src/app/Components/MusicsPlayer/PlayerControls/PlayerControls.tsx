@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import Image from "next/image";
 
@@ -8,7 +9,7 @@ interface PlayerControlsProps {
   onPrevious: () => void;
   duration: number;
   currentTime: number;
-  onTimeChange: (value: any) => void;
+  onTimeChange: (value: number) => void;
 }
 
 function PlayerControls({
@@ -18,6 +19,7 @@ function PlayerControls({
   onPrevious,
   duration,
   currentTime,
+  onTimeChange,
 }: PlayerControlsProps) {
   const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60);
@@ -27,7 +29,22 @@ function PlayerControls({
     }${seconds}`;
   };
 
-  const progress = (currentTime / duration) * 100;
+  const [progress, setProgress] = useState<number>(
+    (currentTime / duration) * 100
+  );
+
+  const handleAudioProgressChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newProgress = Number(e.target.value);
+    const newCurrentTime = (newProgress / 100) * duration;
+    onTimeChange(newCurrentTime);
+  };
+
+  useEffect(() => {
+    const calculatedProgress = (currentTime / duration) * 100;
+    setProgress(calculatedProgress);
+  }, [currentTime, duration]);
 
   return (
     <div className={styles.controls}>
@@ -68,18 +85,19 @@ function PlayerControls({
       </div>
       <div className={styles.musicTimer}>
         <span>{formatTime(currentTime)}</span>
-        <div className={styles.progressBar}>
+        <div className={styles.progressBarContainer}>
+          <input
+            className={styles.progressBar}
+            type="range"
+            min="0"
+            max="100"
+            value={progress}
+            onChange={handleAudioProgressChange}
+          />
           <div
             className={styles.progress}
             style={{ width: `${progress}%` }}
           ></div>
-          <input
-            type="range"
-            min={0}
-            max={duration}
-            value={currentTime}
-            style={{ width: `${duration}%` }}
-          />
         </div>
         <span>{formatTime(duration)}</span>
       </div>
