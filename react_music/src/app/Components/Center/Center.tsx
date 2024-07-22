@@ -1,6 +1,7 @@
 import styles from "./styles.module.scss";
 import { SlArrowLeft, SlArrowRight, SlArrowDown } from "react-icons/sl";
 import Image from "next/image";
+import UploadFile from "@/app/BotãoEnviar";
 const Center = () => {
   return (
     <div className={styles.backG}>
@@ -28,6 +29,7 @@ const Center = () => {
               </span>
             </button>
           </div>
+      <UploadFile />
         </div>
       </section>
     </div>

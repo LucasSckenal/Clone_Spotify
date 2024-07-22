@@ -26,7 +26,7 @@ const Footer = () => {
     setIsFavorite(!isFavorite);
   };
 
-  const handleVolumeChange = (event) => {
+  const handleVolumeChange = (event: any) => {
     const newVolume = event.target.value / 100;
     setVolume(newVolume);
 
