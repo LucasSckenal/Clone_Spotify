@@ -1,0 +1,33 @@
+.modal {
+  position: absolute;
+  border: 8px solid yellow;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  top: 30%;
+  right: 50px;
+  background-color: var(--Background);
+  gap: 10px;
+  padding: 20px;
+
+  p {
+    font-size: 14px;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  button {
+    background-color: var(--BtnGreen);
+    width: 90%;
+    height: 25px;
+    border-radius: 15px;
+  }
+
+  hr {
+    width: 100%;
+  }
+}

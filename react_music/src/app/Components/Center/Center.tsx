@@ -1,7 +1,7 @@
 import styles from "./styles.module.scss";
-import { SlArrowLeft, SlArrowRight, SlArrowDown } from "react-icons/sl";
+import { SlArrowLeft, SlArrowRight, SlArrowDown, SlPlus } from "react-icons/sl";
 import Image from "next/image";
-import UploadFile from "@/app/BotãoEnviar";
+import UploadFile from "@/app/Components/Modals/AddMusic/addMusic";
 const Center = () => {
   return (
     <div className={styles.backG}>
@@ -29,7 +29,16 @@ const Center = () => {
               </span>
             </button>
           </div>
-      <UploadFile />
+          <UploadFile />
+          <button
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <SlPlus />
+          </button>
         </div>
       </section>
     </div>

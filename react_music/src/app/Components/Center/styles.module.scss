@@ -2,7 +2,6 @@
   background: rgb(0, 0, 0);
   color: white;
   padding-top: 20px;
-  
 }
 
 .container {
@@ -22,20 +21,13 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    color: var(--White);
   }
 
   .arrows {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    button {
-      color: var(--White);
-    }
-
-    button:hover {
-      transform: scale(1.2);
-    }
   }
 
   .btnUser {

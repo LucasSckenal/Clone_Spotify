@@ -1,16 +1,21 @@
 "use client";
-import { useState } from "react";
-import { storage, db } from "./Api/firebase";
+import { useState, useRef } from "react";
+import { storage, db } from "../../../Api/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
+import styles from "./styles.module.scss";
 
-export default function UploadFile() {
+export default function AddMusic() {
   const [file, setFile] = useState(null);
   const [image, setImage] = useState(null);
   const [musicName, setMusicName] = useState("");
   const [artistName, setArtistName] = useState("");
   const [progress, setProgress] = useState(0);
-  const [imageProgress, setImageProgress] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
+
+  // Referências para os campos de entrada
+  const fileInputRef = useRef(null);
+  const imageInputRef = useRef(null);
 
   const handleFile = (e) => {
     if (e.target.files[0]) {
@@ -32,11 +37,30 @@ export default function UploadFile() {
     }
   };
 
+  const resetFields = () => {
+    setFile(null);
+    setImage(null);
+    setMusicName("");
+    setArtistName("");
+    setProgress(0);
+    setIsUploading(false);
+
+    // Limpar os campos de entrada de arquivo
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+    if (imageInputRef.current) {
+      imageInputRef.current.value = "";
+    }
+  };
+
   const handleUpload = () => {
     if (!file || !image || !artistName || !musicName) {
       console.error("Preencha todos os campos necessários.");
       return;
     }
+
+    setIsUploading(true);
 
     // Upload da imagem
     const imageRef = ref(storage, `images/${image.name}`);
@@ -48,7 +72,6 @@ export default function UploadFile() {
         const progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        setImageProgress(progress);
       },
       (error) => {
         console.error("Erro ao enviar imagem:", error);
@@ -81,10 +104,13 @@ export default function UploadFile() {
                   url: musicURL,
                 })
                   .then(() => {
-                    console.log("Documento adicionado com sucesso!");
+                    alert("Upload concluído");
                   })
                   .catch((error) => {
                     console.error("Erro ao escrever documento: ", error);
+                  })
+                  .finally(() => {
+                    resetFields(); // Limpar os campos e reabilitar o botão
                   });
               });
             }
@@ -95,28 +121,30 @@ export default function UploadFile() {
   };
 
   return (
-    <div>
-      <input type="file" onChange={handleFile} />
+    <div className={styles.modal}>
+      <p>Arquivo da música</p>
+      <input type="file" ref={fileInputRef} onChange={handleFile} />
+      <hr />
       <input
         type="text"
+        value={artistName}
         placeholder="Nome do artista"
         onChange={handleArtistName}
       />
       <input
         type="text"
+        value={musicName}
         placeholder="Nome da música"
         onChange={handleMusicName}
       />
-      <input
-        type="file"
-        placeholder="Imagem da música"
-        onChange={handleImage}
-        style={{
-          border: "2px solid red",
-        }}
-      />
-      <button onClick={handleUpload}>Upload</button>
-      <div>Progresso do Upload da Imagem: {imageProgress}%</div>
+      <hr />
+      <p>Imagem da música</p>
+      <input type="file" ref={imageInputRef} onChange={handleImage} />
+      <hr />
+      <button onClick={handleUpload} disabled={isUploading}>
+        {isUploading ? "Enviando..." : "Upload"}
+      </button>
+      <hr />
       <div>Progresso do Upload da Música: {progress}%</div>
     </div>
   );
