@@ -13,25 +13,24 @@ export default function AddMusic() {
   const [progress, setProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
 
-  // Referências para os campos de entrada
   const fileInputRef = useRef(null);
   const imageInputRef = useRef(null);
 
-  const handleFile = (e) => {
+  const handleFile = (e: any) => {
     if (e.target.files[0]) {
       setFile(e.target.files[0]);
     }
   };
 
-  const handleArtistName = (e) => {
+  const handleArtistName = (e: any) => {
     setArtistName(e.target.value);
   };
 
-  const handleMusicName = (e) => {
+  const handleMusicName = (e: any) => {
     setMusicName(e.target.value);
   };
 
-  const handleImage = (e) => {
+  const handleImage = (e: any) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
     }
@@ -45,7 +44,6 @@ export default function AddMusic() {
     setProgress(0);
     setIsUploading(false);
 
-    // Limpar os campos de entrada de arquivo
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -61,8 +59,6 @@ export default function AddMusic() {
     }
 
     setIsUploading(true);
-
-    // Upload da imagem
     const imageRef = ref(storage, `images/${image.name}`);
     const uploadImageTask = uploadBytesResumable(imageRef, image);
 
@@ -78,7 +74,6 @@ export default function AddMusic() {
       },
       () => {
         getDownloadURL(uploadImageTask.snapshot.ref).then((imageURL) => {
-          // Upload do arquivo de música
           const storageRef = ref(storage, `audio/${file.name}`);
           const uploadMusicTask = uploadBytesResumable(storageRef, file);
 
@@ -95,7 +90,6 @@ export default function AddMusic() {
             },
             () => {
               getDownloadURL(uploadMusicTask.snapshot.ref).then((musicURL) => {
-                // Adicionar informações ao Firestore
                 addDoc(collection(db, "Music"), {
                   fileName: file.name,
                   musicName: musicName,
@@ -110,7 +104,7 @@ export default function AddMusic() {
                     console.error("Erro ao escrever documento: ", error);
                   })
                   .finally(() => {
-                    resetFields(); // Limpar os campos e reabilitar o botão
+                    resetFields();
                   });
               });
             }
@@ -141,11 +135,15 @@ export default function AddMusic() {
       <p>Imagem da música</p>
       <input type="file" ref={imageInputRef} onChange={handleImage} />
       <hr />
-      <button onClick={handleUpload} disabled={isUploading}>
+      <button
+        className={styles.butonUpload}
+        onClick={handleUpload}
+        disabled={isUploading}
+      >
         {isUploading ? "Enviando..." : "Upload"}
       </button>
       <hr />
-      <div>Progresso do Upload da Música: {progress}%</div>
+      <p>Progresso do Upload da Música: {progress}%</p>
     </div>
   );
 }

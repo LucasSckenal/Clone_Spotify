@@ -1,8 +1,9 @@
 .modal {
   position: absolute;
-  border: 8px solid yellow;
+  border: 3px solid var(--BtnGreen);
   border-radius: 8px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -16,15 +17,25 @@
     font-size: 14px;
   }
 
-  input {
-    width: 100%;
+  .butonUpload {
+    width: 200px;
+    border-radius: 20px;
   }
 
-  button {
-    background-color: var(--BtnGreen);
-    width: 90%;
+  .butonUpload:hover {
+    transition: 0.2s;
+    border: 2px solid var(--BtnGreen);
+  }
+
+  input {
+    width: 100%;
     height: 25px;
-    border-radius: 15px;
+    border-radius: 20px;
+    border: none;
+  }
+
+  input::placeholder {
+    padding-left: 10px;
   }
 
   hr {

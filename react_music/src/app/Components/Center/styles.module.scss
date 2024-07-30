@@ -26,8 +26,16 @@
 
   .arrows {
     display: flex;
+  }
+
+  .btnAling {
+    display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .btnAling:hover {
+    transform: scale(1.2);
   }
 
   .btnUser {
