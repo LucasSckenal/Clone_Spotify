@@ -37,7 +37,6 @@
       align-items: center;
       margin-bottom: 24.5px;
       gap: 20px;
-
     }
   }
 
@@ -56,7 +55,7 @@
     transition: width 0.3s ease;
 
     &.open {
-      width: 95%
+      width: 95%;
     }
 
     li {
@@ -64,8 +63,7 @@
     }
 
     .library {
-      position: fixed;
-      left: 2.5%;
+      margin-left: 38px;
       margin-bottom: 24.5px;
     }
   }

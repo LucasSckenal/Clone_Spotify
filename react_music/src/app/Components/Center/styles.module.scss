@@ -38,6 +38,10 @@
     transform: scale(1.2);
   }
 
+  .btnAling:active {
+    color: var(--BtnGreen);
+  }
+
   .btnUser {
     display: flex;
     align-items: center;
