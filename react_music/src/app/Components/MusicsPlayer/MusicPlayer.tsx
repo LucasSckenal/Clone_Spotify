@@ -1,13 +1,24 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import PlayerControls from "./PlayerControls/PlayerControls";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/app/Api/firebase";
+
+interface Song {
+  id: string;
+  artistName: string;
+  fileName: string;
+  image: string;
+  musicName: string;
+  url: string;
+}
 
 interface MusicPlayerProps {
-  songs: string[];
   audioRef: React.MutableRefObject<HTMLAudioElement | null>;
 }
 
-function MusicPlayer({ songs, audioRef }: MusicPlayerProps) {
+function MusicPlayer({ audioRef }: MusicPlayerProps) {
+  const [songs, setSongs] = useState<Song[]>([]);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -15,6 +26,19 @@ function MusicPlayer({ songs, audioRef }: MusicPlayerProps) {
   const [progress, setProgress] = useState(0);
 
   const currentSong = songs[currentSongIndex];
+
+  useEffect(() => {
+    const fetchSongs = async () => {
+      const querySnapshot = await getDocs(collection(db, "Music"));
+      const songsList: Song[] = [];
+      querySnapshot.forEach((doc) => {
+        songsList.push({ id: doc.id, ...doc.data() } as Song);
+      });
+      setSongs(songsList);
+    };
+
+    fetchSongs();
+  }, []);
 
   const handleTimeChange = (value: number) => {
     setCurrentTime(value);
@@ -47,8 +71,8 @@ function MusicPlayer({ songs, audioRef }: MusicPlayerProps) {
   };
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.src = currentSong;
+    if (audioRef.current && currentSong) {
+      audioRef.current.src = currentSong.url;
       if (isPlaying) {
         audioRef.current.play();
       }
